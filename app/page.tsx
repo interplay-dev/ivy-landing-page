@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Effects from "./effects";
 
 const REQUEST_A_DEMO = "mailto:leon@ivy.one?subject=REQUEST%20A%20DEMO";
@@ -471,7 +472,7 @@ export default function Home() {
           <div className="container">
             <div className="cta reveal">
               <h2 className="cta__h2">Go further with Ivy.</h2>
-              <p className="cta__sub">Help your firm go ten-x — without adding headcount.</p>
+              <p className="cta__sub">Help your firm go 10x — without adding headcount.</p>
               <a className="btn btn--ondark btn--pill btn--xl" href={REQUEST_A_DEMO}>Request a demo</a>
             </div>
             <hr className="footer__divider" />
@@ -487,15 +488,14 @@ export default function Home() {
                 </div>
                 <div className="footer__group">
                   <p className="footer__head">Legal</p>
-                  <a href="#top">Privacy</a>
-                  <a href="#top">Terms</a>
-                  <a href="#top">Data processing</a>
+                  <Link href="/privacy">Privacy</Link>
+                  <Link href="/terms">Terms</Link>
                 </div>
                 <div className="footer__group">
                   <p className="footer__head">Get in touch</p>
                   <a href="mailto:hello@ivy.one">hello@ivy.one</a>
                   <a href={REQUEST_A_DEMO}>Request a demo</a>
-                  <a href="#top">LinkedIn</a>
+                  <a href="https://www.linkedin.com/company/interplayecosystem/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
               </div>
               <div className="footer__legal">
