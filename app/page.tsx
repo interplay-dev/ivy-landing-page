@@ -493,7 +493,7 @@ export default function Home() {
                 </div>
                 <div className="footer__group">
                   <p className="footer__head">Get in touch</p>
-                  <a href="mailto:hello@ivy.one">hello@ivy.one</a>
+                  <a href="mailto:leon@ivy.one">Contact us</a>
                   <a href={REQUEST_A_DEMO}>Request a demo</a>
                   <a href="https://www.linkedin.com/company/interplayecosystem/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
