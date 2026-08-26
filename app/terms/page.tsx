@@ -12,8 +12,8 @@ export default function Terms() {
       <h2>1. Agreement to these terms</h2>
       <p>
         These terms govern your use of the ivy.one website and your general dealings with Ivy
-        (“Ivy”, “we”, “us”), a software and consulting firm and an Interplay company. By using
-        the site or contacting us, you agree to these terms.
+        One, LLC (“Ivy”, “we”, “us”), a software and consulting firm and an Interplay company.
+        By using the site or contacting us, you agree to these terms.
       </p>
 
       <h2>2. Our services</h2>

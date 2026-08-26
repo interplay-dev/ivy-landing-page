@@ -11,7 +11,8 @@ export default function Privacy() {
     <LegalShell title="Privacy Policy" updated="August 26, 2026">
       <h2>1. Who we are</h2>
       <p>
-        Ivy (“Ivy”, “we”, “us”) is a software and consulting firm and an Interplay company. We
+        Ivy One, LLC (“Ivy”, “we”, “us”) is a software and consulting firm and an Interplay
+        company. We
         build Ivy, an AI operator that runs in the cloud for our clients, and we provide
         customization and consulting services around it. This policy explains how we handle
         information when you visit ivy.one, contact us, or work with us.

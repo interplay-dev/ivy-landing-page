@@ -73,7 +73,7 @@ export default function LegalShell({
 
       <footer className="legal__footer">
         <div className="container legal__footer-row">
-          <span>© 2026 Ivy. All rights reserved.</span>
+          <span>© 2026 Ivy One, LLC. All rights reserved.</span>
           <span>
             <Link href="/">ivy.one</Link> · <Link href="/privacy">Privacy</Link> ·{" "}
             <Link href="/terms">Terms</Link>

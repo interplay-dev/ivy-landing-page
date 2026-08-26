@@ -499,7 +499,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="footer__legal">
-                <span>© 2026 Ivy. All rights reserved.</span>
+                <span>© 2026 Ivy One, LLC. All rights reserved.</span>
                 <span className="footer__interplay">An Interplay company</span>
               </div>
             </footer>
