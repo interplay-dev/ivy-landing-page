@@ -261,7 +261,7 @@ export default function Home() {
           {/* Stats */}
           <div className="container stats reveal">
             <div className="stats__row">
-              <div className="stat"><b>3–6</b><span>Roles absorbed by one teammate</span></div>
+              <div className="stat"><b>3–6</b><span>Roles absorbed by Ivy</span></div>
               <div className="stat"><b>7</b><span>Days from kickoff to live</span></div>
               <div className="stat"><b>10–20×</b><span>Return on the payroll she replaces</span></div>
               <div className="stat"><b>40+</b><span>Workstreams ready on day one</span></div>
