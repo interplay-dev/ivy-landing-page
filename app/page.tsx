@@ -1,406 +1,511 @@
-"use client";
+import Effects from "./effects";
 
-import { useEffect, useRef } from "react";
-import Link from "next/link";
-import styles from "./home.module.css";
+const BOOK_A_CALL = "mailto:leon@ivy.one?subject=BOOK%20A%20CALL";
 
-export default function HomePage() {
-  const navRef = useRef<HTMLElement | null>(null);
-  const shapeARef = useRef<HTMLDivElement | null>(null);
-  const shapeBRef = useRef<HTMLDivElement | null>(null);
+function Leaf({ size }: { size: number }) {
+  return (
+    <svg className="leaf" width={size} height={size} viewBox="0 0 64 64">
+      <use href="#ivyLeaf" />
+    </svg>
+  );
+}
 
-  useEffect(() => {
-    // Sticky nav scrolled state + subtle parallax on hero shapes
-    const onScroll = () => {
-      const y = window.scrollY;
-      if (navRef.current) {
-        if (y > 40) navRef.current.classList.add(styles.navScrolled);
-        else navRef.current.classList.remove(styles.navScrolled);
-      }
-      if (shapeARef.current)
-        shapeARef.current.style.transform = `translateY(${y * 0.25}px)`;
-      if (shapeBRef.current)
-        shapeBRef.current.style.transform = `translateY(${y * -0.15}px)`;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    // Scroll-triggered reveals
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            e.target.classList.add(styles.revealIn);
-            io.unobserve(e.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
-    );
-    document.querySelectorAll(`.${styles.reveal}`).forEach((el) => {
-      if (!el.classList.contains(styles.revealIn)) io.observe(el);
-    });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      io.disconnect();
-    };
-  }, []);
-
+export default function Home() {
   return (
     <>
-      <header className={styles.nav} ref={navRef}>
-        <div className={styles.brand}>
-          <span className="leaf" style={{ color: "var(--accent)" }}>
-            🌿
-          </span>{" "}
-          Ivy
+      <Effects />
+
+      <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
+        <defs>
+          <mask id="ivyLeafMask" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+            <path
+              fill="#fff"
+              d="M48.5 11.5 C51.5 26.5 45.5 40.5 34 46 C22 51.8 9 45.5 8.5 34.5 C8 23.5 17.5 15.5 30 14 C36.5 13.2 41.5 17 48.5 11.5 Z"
+            />
+            <path
+              stroke="#000"
+              strokeWidth="4.2"
+              fill="none"
+              strokeLinecap="round"
+              d="M11 41 C19 43 28 38 36 29"
+            />
+          </mask>
+          <g id="ivyLeaf">
+            <path
+              fill="currentColor"
+              mask="url(#ivyLeafMask)"
+              d="M48.5 11.5 C51.5 26.5 45.5 40.5 34 46 C22 51.8 9 45.5 8.5 34.5 C8 23.5 17.5 15.5 30 14 C36.5 13.2 41.5 17 48.5 11.5 Z"
+            />
+            <path
+              d="M3.5 56 C6.5 51 8.5 45.5 11 41"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="none"
+              strokeLinecap="round"
+            />
+          </g>
+        </defs>
+      </svg>
+
+      {/* ============ NAV ============ */}
+      <header className="nav" id="nav">
+        <div className="container nav__row">
+          <a className="lockup" href="#top" aria-label="Ivy home">
+            <Leaf size={26} />
+            <span className="lockup__word">Ivy</span>
+          </a>
+          <div className="nav__actions">
+            <a className="btn btn--primary" href={BOOK_A_CALL}>Book a demo</a>
+          </div>
         </div>
-        <div className={styles.navLinks}>
-          <Link href="/waitlist">Join the waitlist</Link>
-          <a href="#what">What she does</a>
-          <a href="#how">How she lands</a>
-        </div>
-        <Link className={styles.navCta} href="/waitlist">
-          Join the waitlist
-        </Link>
       </header>
 
-      {/* HERO */}
-      <section className={styles.hero}>
-        <div
-          className={`${styles.floatShape} ${styles.floatShapeA}`}
-          ref={shapeARef}
-        />
-        <div
-          className={`${styles.floatShape} ${styles.floatShapeB}`}
-          ref={shapeBRef}
-        />
-        <div className={styles.heroInner}>
-          <div className={`${styles.eyebrow} ${styles.reveal} ${styles.revealIn}`}>
-            🌿 Ivy
-          </div>
-          <h1
-            className={`${styles.reveal} ${styles.revealIn} ${styles.d1}`}
-            style={{ marginTop: 24 }}
-          >
-            A senior teammate. <em>Always on.</em>
-          </h1>
-          <p
-            className={`${styles.heroLead} ${styles.reveal} ${styles.revealIn} ${styles.d2}`}
-            style={{ marginTop: 28 }}
-          >
-            Built for decision-dense firms that need a partner-grade operator
-            without a partner-cost headcount.
-          </p>
-          <div
-            className={`${styles.actions} ${styles.reveal} ${styles.revealIn} ${styles.d3}`}
-            style={{ marginTop: 40 }}
-          >
-            <a className={`${styles.btn} ${styles.btnInk}`} href="#what">
-              Learn more →
-            </a>
-          </div>
-        </div>
-        <div className={styles.scrollCue}>
-          <span>Scroll</span>
-          <span className="line" />
-        </div>
-      </section>
-
-      {/* BUILT-FOR STRIP */}
-      <div className={styles.forStrip}>
-        <div className={styles.forStripInner}>
-          <div className={`${styles.forStripLabel} ${styles.reveal}`}>
-            Built for
-          </div>
-          <div
-            className={`${styles.forStripItems} ${styles.reveal} ${styles.d1}`}
-          >
-            <span>Venture capital</span>
-            <span>Private equity</span>
-            <span>Family offices</span>
-            <span>Boutique investment banks</span>
-            <span>Professional-services partnerships</span>
-          </div>
-        </div>
-      </div>
-
-      {/* WHAT IVY DOES */}
-      <section className={styles.scene} id="what">
-        <div className={styles.statement}>
-          <div className={`${styles.eyebrow} ${styles.reveal}`}>
-            What Ivy does
-          </div>
-          <h2
-            className={`${styles.reveal} ${styles.d1}`}
-            style={{ marginTop: 24 }}
-          >
-            A partner-grade operator who <em>actually shows up.</em>
-          </h2>
-          <p className={`${styles.reveal} ${styles.d2}`}>
-            Custom-fitted to your firm. Lives in your inbox, your calendar,
-            your vault, your chat — under partner control. Runs the work no one
-            has time to own.
-          </p>
-        </div>
-
-        <div className={styles.threeUp}>
-          <div className={styles.reveal}>
-            <span className="num" style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--accent)", letterSpacing: "0.15em", marginBottom: 18, display: "block" }}>01</span>
-            <h3>She remembers.</h3>
-            <p>
-              Every decision, every commitment, every person. A persistent
-              vault that learns your firm&apos;s people, projects, and
-              protocols. She won&apos;t ask the same question twice.
-            </p>
-          </div>
-          <div className={`${styles.reveal} ${styles.d1}`}>
-            <span className="num" style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--accent)", letterSpacing: "0.15em", marginBottom: 18, display: "block" }}>02</span>
-            <h3>She runs the recurring.</h3>
-            <p>
-              IR digests. Sourcing sweeps. Talent screens. Marketing pipelines.
-              Weekly ops. The workstreams that quietly compound when no
-              one&apos;s watching.
-            </p>
-          </div>
-          <div className={`${styles.reveal} ${styles.d2}`}>
-            <span className="num" style={{ fontFamily: "var(--mono)", fontSize: 12, color: "var(--accent)", letterSpacing: "0.15em", marginBottom: 18, display: "block" }}>03</span>
-            <h3>She holds the bar.</h3>
-            <p>
-              Partner-grade judgment. Principal-only direction. Voice and
-              values calibrated to how your firm operates — not a generic
-              chatbot voice.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* THE GAP */}
-      <section className={`${styles.full} ${styles.fullAlt}`}>
-        <div style={{ maxWidth: 1180, margin: "0 auto" }}>
-          <div className={styles.statement}>
-            <div className={`${styles.eyebrow} ${styles.reveal}`}>The gap</div>
-            <h2
-              className={`${styles.reveal} ${styles.d1}`}
-              style={{ marginTop: 24 }}
-            >
-              Between a $50 chatbot and a <em>$60k chief of staff.</em>
-            </h2>
-            <p className={`${styles.reveal} ${styles.d2}`}>
-              Today&apos;s market gives you either commodity SaaS bots with no
-              firm-specific memory — or a human VA at full-time-employee cost.
-              Neither serves a partner running a decision-dense firm.
-            </p>
-          </div>
-
-          <div className={styles.gapGrid}>
-            <div className={`${styles.gapCol} ${styles.reveal}`}>
-              <div className={styles.gapTag}>On one side</div>
-              <h3>Horizontal SaaS bots</h3>
-              <div className={styles.gapPriceLine}>$25–100 / month</div>
-              <p>
-                Generic &quot;AI employee&quot; tools. No firm-specific memory.
-                No protocol library. No partner-grade judgment. They forget you
-                the moment the session ends.
+      <main id="top">
+        {/* ============ HERO ============ */}
+        <section className="hero">
+          <div className="container hero__row">
+            <div className="hero__copy reveal">
+              <p className="eyebrow">The AI operator for family offices</p>
+              <h1 className="hero__h1">
+                Meet Ivy.<br />
+                <span className="muted">Your new AI hire.</span>
+              </h1>
+              <p className="hero__sub">
+                Ivy is your firm’s new team member — one hire that does the work of three to five,
+                at a fraction of the payroll. She runs on your protocols, in your tools, and
+                reports every step.
               </p>
-            </div>
-            <div
-              className={`${styles.gapCol} ${styles.gapColMiddle} ${styles.reveal} ${styles.d1}`}
-            >
-              <div className={styles.gapTag}>Ivy</div>
-              <h3>A custom-fitted teammate</h3>
-              <div className={styles.gapPriceLine}>
-                You pay for outcomes — not seats
+              <div className="hero__ctas">
+                <a className="btn btn--primary btn--pill btn--xl" href={BOOK_A_CALL}>Book a demo</a>
               </div>
-              <p>
-                Persistent memory of your firm. A 25-protocol library
-                calibrated to how you work. White-glove implementation.
-                Partner-grade judgment. Six months of proof, running live.
-              </p>
             </div>
-            <div className={`${styles.gapCol} ${styles.reveal} ${styles.d2}`}>
-              <div className={styles.gapTag}>On the other</div>
-              <h3>Human virtual assistants</h3>
-              <div className={styles.gapPriceLine}>$36k–$67k / year</div>
-              <p>
-                Dedicated humans at full-time-employee cost. Slow to spin up.
-                Hard to scale. Limited to one inbox and one timezone.
-              </p>
+
+            {/* Device cluster */}
+            <div className="cluster-wrap reveal">
+              <div className="cluster">
+                {/* Laptop */}
+                <div className="laptop">
+                  <div className="laptop__lid">
+                    <div className="laptop__screen">
+                      <div className="scale scale--laptop">
+                        <div className="dash">
+                          <div className="dash__topbar">
+                            <Leaf size={16} />
+                            <span className="dash__brand">Ivy</span>
+                            <nav className="dash__tabs">
+                              <span className="is-active">Today</span>
+                              <span>Runs</span>
+                              <span>Approvals</span>
+                              <span>Vault</span>
+                              <span>Protocols</span>
+                            </nav>
+                            <span className="dash__search">Search the vault…</span>
+                            <span className="dash__avatar">C</span>
+                          </div>
+                          <div className="dash__body">
+                            <div className="dash__main">
+                              <div className="dash__kpis">
+                                <div className="kpi">
+                                  <span className="kpi__label">AUM tracked</span>
+                                  <span className="kpi__value">$2.48B</span>
+                                </div>
+                                <div className="kpi">
+                                  <span className="kpi__label">Runs today</span>
+                                  <span className="kpi__value">47</span>
+                                </div>
+                                <div className="kpi">
+                                  <span className="kpi__label">Hours saved · wk</span>
+                                  <span className="kpi__value">31.5</span>
+                                </div>
+                              </div>
+                              <p className="dash__section-title">Active runs</p>
+                              <table className="runs">
+                                <thead>
+                                  <tr><th>Protocol</th><th>Role</th><th>Status</th><th className="t-right">Time</th></tr>
+                                </thead>
+                                <tbody>
+                                  <tr><td>Quarterly LP letter</td><td>IR</td><td><span className="badge badge--live">Live</span></td><td className="t-right mono">09:41</td></tr>
+                                  <tr><td>Bank-feed reconcile</td><td>Controller</td><td><span className="badge badge--live">Live</span></td><td className="t-right mono">09:38</td></tr>
+                                  <tr><td>Deal-flow screen</td><td>Analyst</td><td><span className="badge badge--neutral">Queued</span></td><td className="t-right mono">09:30</td></tr>
+                                  <tr><td>Board-pack assembly</td><td>Chief of Staff</td><td><span className="badge badge--neutral">Done</span></td><td className="t-right mono">08:52</td></tr>
+                                  <tr><td>Manager scorecards</td><td>Analyst</td><td><span className="badge badge--warn">Review</span></td><td className="t-right mono">08:17</td></tr>
+                                </tbody>
+                              </table>
+                              <span className="dash__viewall">View all 47 runs →</span>
+                            </div>
+                            <aside className="approvals">
+                              <p className="approvals__head">Approvals <span className="approvals__count">3</span></p>
+                              <div className="approvals__item">
+                                <b>Q3 distribution memo</b>
+                                <span>$1.2M across 4 entities</span>
+                                <div className="approvals__btns">
+                                  <span className="mini-btn">Approve</span>
+                                  <span className="mini-link">Open</span>
+                                </div>
+                              </div>
+                              <div className="approvals__item"><b>Wire — Meridian Capital</b><span>Awaiting second signer</span></div>
+                              <div className="approvals__item"><b>LP letter — final draft</b><span>12 recipients</span></div>
+                            </aside>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="laptop__base"><span className="laptop__notch" /></div>
+                </div>
+
+                {/* iPad */}
+                <div className="ipad">
+                  <div className="ipad__screen">
+                    <div className="scale scale--ipad">
+                      <div className="pad-ui">
+                        <div className="pad-ui__status"><b>9:41</b><span>Today</span></div>
+                        <div className="pad-ui__bar">
+                          <Leaf size={15} />
+                          <span className="pad-ui__brand">Ivy</span>
+                        </div>
+                        <div className="pad-ui__kpis">
+                          <div className="kpi-card">
+                            <span className="kpi__label">AUM tracked</span>
+                            <span className="kpi-card__value">$2.48B</span>
+                          </div>
+                          <div className="kpi-card">
+                            <span className="kpi__label">Runs today</span>
+                            <span className="kpi-card__value">47</span>
+                          </div>
+                        </div>
+                        <p className="pad-ui__title">Active runs</p>
+                        <ul className="pad-runs">
+                          <li><i className="dot dot--live" />Quarterly LP letter<span className="mono">09:41</span></li>
+                          <li><i className="dot dot--live" />Bank-feed reconcile<span className="mono">09:38</span></li>
+                          <li><i className="dot dot--idle" />Deal-flow screen<span className="mono">09:30</span></li>
+                          <li><i className="dot dot--warn" />Manager scorecards<span className="mono">08:17</span></li>
+                        </ul>
+                        <div className="pad-chart">
+                          <div className="pad-chart__head">
+                            <span className="kpi__label">Hours saved this week</span>
+                            <b>31.5</b>
+                          </div>
+                          <div className="pad-chart__bars">
+                            <i style={{ height: 16, background: "#B6D9C7" }} />
+                            <i style={{ height: 22, background: "#B6D9C7" }} />
+                            <i style={{ height: 18, background: "#83BFA4" }} />
+                            <i style={{ height: 27, background: "#83BFA4" }} />
+                            <i style={{ height: 24, background: "#4E9F7E" }} />
+                            <i style={{ height: 33, background: "#2C8462" }} />
+                            <i style={{ height: 40, background: "#1B6A4D" }} />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="phone">
+                  <div className="phone__screen">
+                    <div className="scale scale--phone">
+                      <div className="slack">
+                        <div className="slack__status">
+                          <b>9:41</b>
+                          <span className="slack__island" />
+                          <span className="slack__battery"><i /></span>
+                        </div>
+                        <div className="slack__header">
+                          <span className="slack__avatar slack__avatar--ivy"><Leaf size={17} /></span>
+                          <b>Ivy</b><i className="presence" /><span className="app-badge">APP</span>
+                        </div>
+                        <div className="slack__feed">
+                          <div className="msg">
+                            <span className="slack__avatar slack__avatar--c">C</span>
+                            <div className="msg__body">
+                              <p className="msg__meta"><b>Christian</b><time>9:12</time></p>
+                              <p>Ivy — can you prep the Q3 distribution memo before Thursday’s call?</p>
+                            </div>
+                          </div>
+                          <div className="msg">
+                            <span className="slack__avatar slack__avatar--ivy"><Leaf size={18} /></span>
+                            <div className="msg__body">
+                              <p className="msg__meta"><b>Ivy</b><span className="app-badge">APP</span><time>9:14</time></p>
+                              <p>Done. The draft memo and schedule are in the vault:</p>
+                              <div className="file-card">
+                                <span className="file-card__icon">X</span>
+                                <span className="file-card__meta">
+                                  <b>Q3_Distributions.xlsx</b>
+                                  <i>42 KB · Spreadsheet</i>
+                                </span>
+                              </div>
+                              <p>Three line items are flagged for review. Approve and I’ll circulate it to the family.</p>
+                              <span className="reaction">✓ 2</span>
+                            </div>
+                          </div>
+                          <div className="msg">
+                            <span className="slack__avatar slack__avatar--c">C</span>
+                            <div className="msg__body">
+                              <p className="msg__meta"><b>Christian</b><time>9:15</time></p>
+                              <p>Perfect — approving now.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="slack__input">Message Ivy<span className="slack__send">↑</span></div>
+                        <span className="slack__home" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* HOW SHE LANDS */}
-      <section className={styles.landSection} id="how">
-        <div className={`${styles.eyebrow} ${styles.reveal}`}>How she lands</div>
-        <h2
-          className={`${styles.reveal} ${styles.d1}`}
-          style={{ marginTop: 24, maxWidth: 760 }}
-        >
-          Two weeks from intake to live.
-        </h2>
-        <p
-          className={`${styles.reveal} ${styles.d2}`}
-          style={{ fontSize: 19, maxWidth: 620 }}
-        >
-          A productized onboarding pipeline. We do the work; you approve the
-          work.
-        </p>
-
-        <div className={styles.landGrid}>
-          {[
-            {
-              day: "Days 1–3",
-              h: "Vault build",
-              p: "We scaffold the vault, identity files, and your firm's people, projects, and CRM. Ivy starts knowing your world.",
-              d: "",
-            },
-            {
-              day: "Days 4–7",
-              h: "Protocol intake",
-              p: "You pick from a 25-protocol library — IR, sourcing, talent, marketing, ops. We calibrate each one to your voice and your bar.",
-              d: styles.d1,
-            },
-            {
-              day: "Days 8–11",
-              h: "Channel auth",
-              p: "Gmail. Calendar. Slack. Telegram. CRM. Audit-logged, partner-scoped, fully reversible. Ivy lives in your stack.",
-              d: styles.d2,
-            },
-            {
-              day: "Days 12–14",
-              h: "Calibration & go-live",
-              p: "A senior operator runs the first 90 days alongside you. Ivy ships work; you adjust the bar. By week two she's earning her keep.",
-              d: styles.d3,
-            },
-          ].map((s) => (
-            <div
-              key={s.day}
-              className={`${styles.landStep} ${styles.reveal} ${s.d}`}
-            >
-              <div className="dot" />
-              <div className="day">{s.day}</div>
-              <h4>{s.h}</h4>
-              <p>{s.p}</p>
+          {/* Stats */}
+          <div className="container stats reveal">
+            <div className="stats__row">
+              <div className="stat"><b>3–6</b><span>Roles absorbed by one teammate</span></div>
+              <div className="stat"><b>7</b><span>Days from kickoff to live</span></div>
+              <div className="stat"><b>10–20×</b><span>Return on the payroll she replaces</span></div>
+              <div className="stat"><b>40+</b><span>Workstreams ready on day one</span></div>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* PROTOCOL LIBRARY */}
-      <section className={styles.libSection}>
-        <div className={`${styles.eyebrow} ${styles.reveal}`}>
-          The protocol library
-        </div>
-        <h2
-          className={`${styles.reveal} ${styles.d1}`}
-          style={{ marginTop: 24 }}
-        >
-          25+ workstreams Ivy already knows how to run.
-        </h2>
-        <p
-          className={`${styles.reveal} ${styles.d2}`}
-          style={{ fontSize: 19, maxWidth: 640, marginTop: 16 }}
-        >
-          Battle-tested inside Interplay across IR, sourcing, talent,
-          marketing, and operations. Pick the ones that match your firm — we
-          customize the rest.
-        </p>
-
-        <div className={styles.libTags}>
-          {[
-            ["IR Intelligence", ""],
-            ["Engage Tracker", ""],
-            ["Fundraise", ""],
-            ["VC Sourcing", styles.d1],
-            ["Talent Hiring", styles.d1],
-            ["This Week @", styles.d1],
-            ["Inbox Triage", styles.d2],
-            ["Calendar Brief", styles.d2],
-            ["Board Prep", styles.d2],
-            ["Investor Updates", styles.d2],
-            ["LP CRM Enrichment", styles.d3],
-            ["Corp Dev Outreach", styles.d3],
-            ["Newsletter Pipeline", styles.d3],
-            ["Auto-Draft Social", styles.d3],
-            ["Pipeline Hygiene", styles.d4],
-            ["Meeting Memory", styles.d4],
-            ["Office Operations", styles.d4],
-            ["Weekly Digest", styles.d4],
-            ["Quarterly Review Prep", styles.d5],
-            ["Conference Tracking", styles.d5],
-            ["+ custom protocols", styles.d5],
-          ].map(([label, d]) => (
-            <div
-              key={label}
-              className={`${styles.libTag} ${styles.reveal} ${d}`}
-            >
-              {label}
+        {/* ============ PROBLEM ============ */}
+        <section className="band" id="problem">
+          <div className="container">
+            <p className="eyebrow eyebrow--ondark reveal">The problem</p>
+            <div className="problem__cols">
+              <div className="reveal">
+                <h2 className="h2 h2--ondark">
+                  Time is valuable<br />
+                  <span className="h2__muted">Don’t spend it on<br />non-partner work.</span>
+                </h2>
+                <p className="problem__lede">
+                  Family offices run in a hiring dead zone: more work than the team can carry, but
+                  too lumpy, too varied, and too senior to hire for. So the principal does it — at
+                  midnight.
+                </p>
+              </div>
+              <ol className="pains">
+                <li className="reveal">
+                  <span className="pains__num">01</span>
+                  <div>
+                    <b>The AI you already bought has no memory of you</b>
+                    <p>Copilot, ChatGPT Enterprise, a generative-AI pilot — nothing returned to the P&L. The diagnosed cause, every time: context that never sticks.</p>
+                  </div>
+                </li>
+                <li className="reveal">
+                  <span className="pains__num">02</span>
+                  <div>
+                    <b>AI spend is scattered across seats and token bills</b>
+                    <p>Eleven subscriptions, no owner, nothing compounding. Every tool starts from zero again on Monday morning.</p>
+                  </div>
+                </li>
+                <li className="reveal">
+                  <span className="pains__num">03</span>
+                  <div>
+                    <b>The firm’s memory lives in inboxes and in people’s heads</b>
+                    <p>Why the family passed on that manager in 2018. How the trust is structured. Which broker to call in Zurich. When people leave, it leaves with them.</p>
+                  </div>
+                </li>
+                <li className="reveal">
+                  <span className="pains__num">04</span>
+                  <div>
+                    <b>You want to be AI-native — and nobody will own it</b>
+                    <p>A ten-person office has no CTO to run AI as a platform, and no appetite for a pilot that dies in month two.</p>
+                  </div>
+                </li>
+              </ol>
             </div>
-          ))}
-        </div>
+          </div>
+        </section>
 
-        <p className={`${styles.libFoot} ${styles.reveal}`}>
-          Each customer customizes a subset. We build the rest with you.
-        </p>
-      </section>
+        {/* ============ ROLES ============ */}
+        <section className="section" id="roles">
+          <div className="container">
+            <p className="eyebrow reveal">One hire, six seats</p>
+            <h2 className="h2 reveal">
+              One teammate.<br />
+              <span className="h2__muted">Six roles on the org chart.</span>
+            </h2>
+            <p className="lede reveal">
+              Ivy doesn’t sit in one seat. She moves across the org chart as the work demands —
+              every role running on your firm’s protocols, with an audit trail behind every task.
+            </p>
+            <div className="roles-grid">
+              <article className="role-card reveal"><span className="role-card__num">01</span><h3>Chief of Staff</h3><p>Runs the principal’s week. Agendas, follow-ups, and the decision memos that never got written.</p></article>
+              <article className="role-card reveal"><span className="role-card__num">02</span><h3>Controller</h3><p>Chases the bank feeds, reconciles the books, preps approvals, and flags the expense nobody can explain.</p></article>
+              <article className="role-card reveal"><span className="role-card__num">03</span><h3>Analyst</h3><p>Screens deal flow, builds the one-pagers, and has the numbers ready before Monday’s meeting.</p></article>
+              <article className="role-card reveal"><span className="role-card__num">04</span><h3>Investor Relations</h3><p>Drafts the quarterly letters, answers every data request, and keeps each LP conversation warm.</p></article>
+              <article className="role-card reveal"><span className="role-card__num">05</span><h3>Engineer</h3><p>Wires up new data sources, keeps the integrations healthy, and automates what she did yesterday.</p></article>
+              <article className="role-card reveal"><span className="role-card__num">06</span><h3>Executive Assistant</h3><p>Inbox triage, scheduling, travel — the thousand small threads that used to eat the day.</p></article>
+            </div>
+          </div>
+        </section>
 
-      {/* PULL QUOTE */}
-      <section className={styles.scene}>
-        <div className={styles.pullQuote}>
-          <span className={`mark ${styles.reveal}`}>&ldquo;</span>
-          <blockquote className={`${styles.reveal} ${styles.d1}`}>
-            Six months in production at Interplay. Thirteen live workstreams.
-            The model isn&apos;t a thesis. It&apos;s a <em>track record.</em>
-          </blockquote>
-          <cite className={`${styles.reveal} ${styles.d2}`}>
-            — Built and proven inside Interplay
-          </cite>
-        </div>
-      </section>
+        {/* ============ QUOTE ============ */}
+        <section className="quote">
+          <div className="container quote__inner reveal">
+            <Leaf size={38} />
+            <blockquote>
+              “Since we started working with Ivy she has taken over the work of six full-time
+              roles. We are ten times more productive — and more effective.”
+            </blockquote>
+            <cite>Christian — Partner, Ascend Family Office</cite>
+          </div>
+        </section>
 
-      {/* CLOSING */}
-      <section className={styles.closing}>
-        <div className={`${styles.eyebrow} ${styles.reveal}`}>
-          The invitation
-        </div>
-        <h2
-          className={`${styles.reveal} ${styles.d1}`}
-          style={{ marginTop: 24, maxWidth: 820, marginLeft: "auto", marginRight: "auto" }}
-        >
-          Pick one workstream you keep putting off.
-          <br />
-          <em>Let Ivy take it.</em>
-        </h2>
-        <p
-          className={`${styles.reveal} ${styles.d2}`}
-          style={{ maxWidth: 560, margin: "0 auto", fontSize: 18 }}
-        >
-          Two weeks to live. White-glove implementation. Partner-grade judgment
-          from day one.
-        </p>
-        <Link
-          href="/waitlist"
-          className={`${styles.btn} ${styles.btnInk} ${styles.reveal} ${styles.d3}`}
-          style={{ marginTop: 40 }}
-        >
-          Join the Waitlist
-        </Link>
-      </section>
+        {/* ============ PROTOCOLS ============ */}
+        <section className="section" id="protocols">
+          <div className="container">
+            <p className="eyebrow reveal">Protocol library</p>
+            <h2 className="h2 reveal">
+              Set up 40+ tasks in seconds.<br />
+              <span className="h2__muted">Built custom to your firm.</span>
+            </h2>
+            <p className="lede reveal">
+              Battle-tested across IR, sourcing, deals, marketing, and operations. Pick the ones
+              that match your firm — we build the rest with you.
+            </p>
+            <div className="chips reveal">
+              {[
+                "Quarterly LP letter", "Deal-flow screen", "Bank-feed reconcile", "IC memo draft",
+                "Inbox triage", "Capital-call notices", "Meeting debriefs", "One-pager builder",
+                "Expense flags", "Data-room requests", "Manager scorecards", "Cash-position digest",
+                "Board-pack assembly", "Diligence tracker", "Invoice approval prep", "News monitoring",
+                "Term-sheet compare", "Travel & scheduling", "Distribution memos", "LP onboarding pack",
+                "Vendor renewals", "K-1 chase", "Portfolio flash report",
+              ].map((chip) => (
+                <span className="chip" key={chip}>{chip}</span>
+              ))}
+              <span className="chip chip--accent">+ Yours — built with you</span>
+            </div>
+          </div>
+        </section>
 
-      {/* FOOTER */}
-      <footer className={styles.footer}>
-        <div className={styles.brand}>
-          <span style={{ color: "var(--accent)" }}>🌿</span> Ivy
-        </div>
-        <div className="links" style={{ display: "flex", gap: 28 }}>
-          <Link href="/waitlist">Join the waitlist</Link>
-          <a href="#what">What she does</a>
-          <a href="#how">How she lands</a>
-        </div>
-        <div>An Interplay platform product.</div>
-      </footer>
+        {/* ============ COMPARISON ============ */}
+        <section className="section section--bone" id="difference">
+          <div className="container">
+            <p className="eyebrow reveal">The difference</p>
+            <h2 className="h2 reveal">
+              A true company brain.<br />
+              <span className="h2__muted">Not just a chatbot.</span>
+            </h2>
+            <p className="lede reveal">
+              Ivy runs on the world’s best models — then adds what a real hire needs: memory,
+              identity, and a place on your channels.
+            </p>
+            <div className="compare-scroll reveal">
+              <div className="compare" role="table" aria-label="Claude Desktop compared with Ivy">
+                <div className="compare__row compare__row--head" role="row">
+                  <span role="columnheader" />
+                  <span className="compare__col-claude" role="columnheader">Claude Desktop</span>
+                  <span className="compare__col-ivy compare__ivy-head" role="columnheader"><Leaf size={18} /> Ivy</span>
+                </div>
+                <div className="compare__row" role="row">
+                  <span className="compare__label" role="rowheader">Memory & context</span>
+                  <span className="compare__col-claude" role="cell"><i className="glyph glyph--no">✕</i>Single-thread context. Forgets your firm between sessions.</span>
+                  <span className="compare__col-ivy" role="cell"><i className="glyph glyph--yes">✓</i>Four-layer memory model — full firm context, always retained.</span>
+                </div>
+                <div className="compare__row" role="row">
+                  <span className="compare__label" role="rowheader">Identity & access</span>
+                  <span className="compare__col-claude" role="cell"><i className="glyph glyph--no">✕</i>One personal login. No roles, no oversight.</span>
+                  <span className="compare__col-ivy" role="cell"><i className="glyph glyph--yes">✓</i>Firm-wide identity with approval levels set at setup.</span>
+                </div>
+                <div className="compare__row" role="row">
+                  <span className="compare__label" role="rowheader">Availability</span>
+                  <span className="compare__col-claude" role="cell"><i className="glyph glyph--no">✕</i>Runs only while the app window is open.</span>
+                  <span className="compare__col-ivy" role="cell"><i className="glyph glyph--yes">✓</i>Always on — keeps working while your laptop sleeps.</span>
+                </div>
+                <div className="compare__row" role="row">
+                  <span className="compare__label" role="rowheader">Where she lives</span>
+                  <span className="compare__col-claude" role="cell"><i className="glyph glyph--no">✕</i>A desktop chat window.</span>
+                  <span className="compare__col-ivy" role="cell"><i className="glyph glyph--yes">✓</i>Slack, Telegram, WhatsApp, iMessage, and email.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============ TIMELINE ============ */}
+        <section className="section" id="onboarding">
+          <div className="container">
+            <p className="eyebrow reveal">Onboarding</p>
+            <h2 className="h2 reveal">
+              Live in two weeks.<br />
+              <span className="h2__muted">Tailored to your firm.</span>
+            </h2>
+            <p className="lede reveal">
+              No engineers on your side, no change program. One operator from our team, a
+              fortnight, and a teammate who already knows the firm.
+            </p>
+            <ol className="timeline">
+              <li className="tl-step reveal">
+                <span className="tl-step__dot">1</span>
+                <span className="tl-step__days">Days 1–3</span>
+                <h3>Vault build</h3>
+                <p>We build the vault: identity files for your people, entities, projects, and CRM. Ivy starts by knowing your world.</p>
+              </li>
+              <li className="tl-step reveal">
+                <span className="tl-step__dot">2</span>
+                <span className="tl-step__days">Days 4–8</span>
+                <h3>Protocol intake</h3>
+                <p>You pick from the 40+ library. We calibrate each protocol to your voice and your firm’s way of working.</p>
+              </li>
+              <li className="tl-step reveal">
+                <span className="tl-step__dot">3</span>
+                <span className="tl-step__days">Days 8–11</span>
+                <h3>Channel auth</h3>
+                <p>Gmail, calendar, Slack, Telegram, CRM — every connection logged, permission-scoped, and fully reversible.</p>
+              </li>
+              <li className="tl-step reveal">
+                <span className="tl-step__dot">4</span>
+                <span className="tl-step__days">Days 12–14</span>
+                <h3>Calibration & go-live</h3>
+                <p>A senior operator runs the first live protocols beside you. By day fourteen, Ivy ships on her own.</p>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        {/* ============ CTA + FOOTER ============ */}
+        <section className="band band--footer">
+          <div className="container">
+            <div className="cta reveal">
+              <h2 className="cta__h2">Go further with Ivy.</h2>
+              <p className="cta__sub">Help your firm go ten-x — without adding headcount.</p>
+              <a className="btn btn--ondark btn--pill btn--xl" href={BOOK_A_CALL}>Book an intro call</a>
+            </div>
+            <hr className="footer__divider" />
+            <footer className="footer">
+              <div className="footer__cols">
+                <div className="footer__brand">
+                  <a className="lockup" href="#top" aria-label="Ivy home">
+                    <Leaf size={26} />
+                    <span className="lockup__word lockup__word--ondark">Ivy</span>
+                  </a>
+                  <p>The AI operator for family offices,<br />private equity, and investment funds.</p>
+                  <span className="footer__site">IVY.ONE</span>
+                </div>
+                <div className="footer__group">
+                  <p className="footer__head">Legal</p>
+                  <a href="#top">Privacy</a>
+                  <a href="#top">Terms</a>
+                  <a href="#top">Data processing</a>
+                </div>
+                <div className="footer__group">
+                  <p className="footer__head">Get in touch</p>
+                  <a href="mailto:hello@ivy.one">hello@ivy.one</a>
+                  <a href={BOOK_A_CALL}>Book a demo</a>
+                  <a href="#top">LinkedIn</a>
+                </div>
+              </div>
+              <div className="footer__legal">
+                <span>© 2026 Ivy. All rights reserved.</span>
+                <span className="footer__interplay">An Interplay company</span>
+              </div>
+            </footer>
+          </div>
+        </section>
+      </main>
     </>
   );
 }

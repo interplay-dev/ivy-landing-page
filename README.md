@@ -1,12 +1,15 @@
 # ivy.one — Next.js landing page
 
-The ivy.one marketing site, rebuilt as a Next.js 16 (App Router, TypeScript) app for Vercel hosting.
+The ivy.one marketing site — Next.js 16 (App Router, TypeScript), built for Vercel hosting.
 
-Ported from the static `~/.openclaw/workspace/data/ivy-one-site/` build (index.html + waitlist.html) on 2026-08-14.
+The `/` landing page follows the Ivy Brand System v1.0 (Aug 2026) and was ported on 2026-08-26 from the
+"FINAL LANDING PAGE" frame in the [Ivy — Landing page Figma file](https://www.figma.com/design/cNF5nVeXhM5ZeugvtZdYXo).
+Fonts are self-hosted via `next/font` (Inter Tight, Inter, Instrument Serif, IBM Plex Mono); the hero
+device mockups (dashboard laptop, iPad, Slack phone) are pure HTML/CSS — no images.
 
 ## Routes
 
-- `/` — landing page (hero, "built for" strip, what Ivy does, the gap, how she lands, protocol library, pull quote, closing CTA, footer)
+- `/` — landing page (hero + device cluster, stats, problem band, six roles, pull quote, protocol library, comparison table, onboarding timeline, CTA + footer). Every booking CTA opens `mailto:leon@ivy.one?subject=BOOK A CALL`.
 - `/waitlist` — waitlist signup form (validates work email against free-email blocklist, POSTs to a Google Apps Script Web App bound to the "TEST Ivy-as-a-Service Waitlist Auto Populate" Sheet)
 
 ## Local dev
@@ -32,3 +35,9 @@ npm start
 ## Deploy
 
 Push to GitHub → connect the repo in Vercel → set `NEXT_PUBLIC_WAITLIST_ENDPOINT` (optional) in Project Settings → deploy. Point the `ivy.one` domain at the Vercel project.
+
+## Brand
+
+Design tokens (color ramp, type scale, radii, shadows, motion) live in `app/globals.css` and mirror
+`~/IVY/brand/ivy-brand-guidelines.html` — one green (`#1B6A4D`), bone ground (`#F4F2ED`), Ivy 950 bands
+as punctuation, Instrument Serif for a single pull quote.
