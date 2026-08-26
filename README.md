@@ -9,7 +9,7 @@ device mockups (dashboard laptop, iPad, Slack phone) are pure HTML/CSS — no im
 
 ## Routes
 
-- `/` — landing page (hero + device cluster, stats, problem band, six roles, pull quote, protocol library, comparison table, onboarding timeline, CTA + footer). Every booking CTA opens `mailto:leon@ivy.one?subject=BOOK A CALL`.
+- `/` — landing page (hero + device cluster, stats, problem band, six roles, pull quote, protocol library, comparison table, onboarding timeline, CTA + footer). Every booking CTA ("Request a demo") opens `mailto:leon@ivy.one?subject=REQUEST A DEMO`.
 - `/waitlist` — waitlist signup form (validates work email against free-email blocklist, POSTs to a Google Apps Script Web App bound to the "TEST Ivy-as-a-Service Waitlist Auto Populate" Sheet)
 
 ## Local dev

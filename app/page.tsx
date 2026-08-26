@@ -1,6 +1,6 @@
 import Effects from "./effects";
 
-const BOOK_A_CALL = "mailto:leon@ivy.one?subject=BOOK%20A%20CALL";
+const REQUEST_A_DEMO = "mailto:leon@ivy.one?subject=REQUEST%20A%20DEMO";
 
 function Leaf({ size }: { size: number }) {
   return (
@@ -55,7 +55,7 @@ export default function Home() {
             <span className="lockup__word">Ivy</span>
           </a>
           <div className="nav__actions">
-            <a className="btn btn--primary" href={BOOK_A_CALL}>Book a demo</a>
+            <a className="btn btn--primary" href={REQUEST_A_DEMO}>Request a demo</a>
           </div>
         </div>
       </header>
@@ -76,7 +76,7 @@ export default function Home() {
                 reports every step.
               </p>
               <div className="hero__ctas">
-                <a className="btn btn--primary btn--pill btn--xl" href={BOOK_A_CALL}>Book a demo</a>
+                <a className="btn btn--primary btn--pill btn--xl" href={REQUEST_A_DEMO}>Request a demo</a>
               </div>
             </div>
 
@@ -472,7 +472,7 @@ export default function Home() {
             <div className="cta reveal">
               <h2 className="cta__h2">Go further with Ivy.</h2>
               <p className="cta__sub">Help your firm go ten-x — without adding headcount.</p>
-              <a className="btn btn--ondark btn--pill btn--xl" href={BOOK_A_CALL}>Book an intro call</a>
+              <a className="btn btn--ondark btn--pill btn--xl" href={REQUEST_A_DEMO}>Request a demo</a>
             </div>
             <hr className="footer__divider" />
             <footer className="footer">
@@ -494,7 +494,7 @@ export default function Home() {
                 <div className="footer__group">
                   <p className="footer__head">Get in touch</p>
                   <a href="mailto:hello@ivy.one">hello@ivy.one</a>
-                  <a href={BOOK_A_CALL}>Book a demo</a>
+                  <a href={REQUEST_A_DEMO}>Request a demo</a>
                   <a href="#top">LinkedIn</a>
                 </div>
               </div>
