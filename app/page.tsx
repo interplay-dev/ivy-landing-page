@@ -358,7 +358,7 @@ export default function Home() {
           <div className="container">
             <p className="eyebrow reveal">Protocol library</p>
             <h2 className="h2 reveal">
-              Set up 40+ tasks in seconds.<br />
+              Set up 100+ tasks in seconds.<br />
               <span className="h2__muted">Built custom to your firm.</span>
             </h2>
             <p className="lede reveal">
