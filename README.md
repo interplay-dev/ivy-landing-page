@@ -28,8 +28,20 @@ npm run build
 npm start
 ```
 
+## Demo-request modal
+
+Every "Request a demo" CTA opens a modal (form: name, work email, company, type, size, source,
+privacy consent — modeled on rogo.com/felix). Submitting opens a prefilled REQUEST A DEMO email
+to leon@ivy.one and POSTs to `/api/demo-request`, which upserts a HubSpot contact and creates a
+deal in the stage labeled "Lead identified" (portal 247192581). `#demo` in the URL deep-links
+the modal open; without JavaScript the CTAs fall back to plain mailto.
+
 ## Env
 
+- `HUBSPOT_TOKEN` — a HubSpot **Private App** access token (`pat-na2-…`) with scopes
+  `crm.objects.contacts.read/write` and `crm.objects.deals.read/write`. Create it under
+  HubSpot → Settings → Integrations → Private Apps. (Developer API keys `na2-…` do NOT work
+  for the CRM API.) Without it the form still works; deals just aren't created.
 - `NEXT_PUBLIC_WAITLIST_ENDPOINT` — Apps Script Web App URL for waitlist submissions. Defaults to the current production endpoint if unset.
 
 ## Deploy
