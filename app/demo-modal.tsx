@@ -135,7 +135,8 @@ export default function DemoModal() {
             <>
               <h2 className="dm__title">See Ivy in action.</h2>
               <p className="dm__sub">
-                Schedule a 30 min demo with our team to see how Ivy can benefit your firm.
+                Schedule a 30 minute demo with one of our AI consultants to see how Ivy can
+                benefit your firm.
               </p>
               <form className="dm__form" onSubmit={submit} noValidate>
                 <div className="dm__grid">
