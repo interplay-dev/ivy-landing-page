@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 const HUBSPOT = "https://api.hubapi.com";
 
@@ -62,23 +63,47 @@ async function upsertContact(token: string, p: Payload) {
   return null;
 }
 
-export async function POST(req: Request) {
-  let p: Payload;
+// Email the request to leon@ivy.one server-side over SMTP (Google Workspace
+// app password; SMTP_USER/SMTP_PASS env vars — see README).
+async function sendEmail(p: Payload) {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = process.env;
+  if (!SMTP_USER || !SMTP_PASS) {
+    console.error("demo-request: SMTP_USER/SMTP_PASS not set — email skipped");
+    return false;
+  }
+  const port = Number(SMTP_PORT || 465);
   try {
-    p = (await req.json()) as Payload;
-  } catch {
-    return NextResponse.json({ ok: false, error: "invalid json" }, { status: 400 });
+    const transport = nodemailer.createTransport({
+      host: SMTP_HOST || "smtp.gmail.com",
+      port,
+      secure: port === 465,
+      auth: { user: SMTP_USER, pass: SMTP_PASS },
+    });
+    await transport.sendMail({
+      from: `"ivy.one" <${SMTP_USER}>`,
+      to: "leon@ivy.one",
+      replyTo: p.email,
+      subject: "REQUEST A DEMO",
+      text: [
+        "New demo request from ivy.one",
+        "",
+        `First name: ${p.firstName}`,
+        `Last name: ${p.lastName}`,
+        `Work email: ${p.email}`,
+        `Company: ${p.company}`,
+        `Company type: ${p.companyType}`,
+        `Company size: ${p.companySize}`,
+        `Heard about us via: ${p.source}`,
+      ].join("\n"),
+    });
+    return true;
+  } catch (err) {
+    console.error("demo-request: smtp error", err);
+    return false;
   }
-  if (!p?.email || !p?.firstName || !p?.company) {
-    return NextResponse.json({ ok: false, error: "missing fields" }, { status: 400 });
-  }
+}
 
-  const token = process.env.HUBSPOT_TOKEN;
-  if (!token) {
-    console.error("demo-request: HUBSPOT_TOKEN is not set");
-    return NextResponse.json({ ok: true, crm: false });
-  }
-
+async function createCrmRecords(token: string, p: Payload) {
   try {
     const [stageInfo, contactId] = await Promise.all([
       resolveStage(token),
@@ -121,11 +146,33 @@ export async function POST(req: Request) {
 
     if (deal.status !== 201) {
       console.error("demo-request: deal create failed", deal.status, deal.body);
-      return NextResponse.json({ ok: true, crm: false });
+      return { crm: false as const };
     }
-    return NextResponse.json({ ok: true, crm: true, dealId: deal.body.id });
+    return { crm: true as const, dealId: deal.body.id as string };
   } catch (err) {
     console.error("demo-request: hubspot error", err);
-    return NextResponse.json({ ok: true, crm: false });
+    return { crm: false as const };
   }
+}
+
+export async function POST(req: Request) {
+  let p: Payload;
+  try {
+    p = (await req.json()) as Payload;
+  } catch {
+    return NextResponse.json({ ok: false, error: "invalid json" }, { status: 400 });
+  }
+  if (!p?.email || !p?.firstName || !p?.company) {
+    return NextResponse.json({ ok: false, error: "missing fields" }, { status: 400 });
+  }
+
+  const token = process.env.HUBSPOT_TOKEN;
+  if (!token) console.error("demo-request: HUBSPOT_TOKEN is not set");
+
+  const [emailed, crm] = await Promise.all([
+    sendEmail(p),
+    token ? createCrmRecords(token, p) : Promise.resolve({ crm: false as const }),
+  ]);
+
+  return NextResponse.json({ ok: true, emailed, ...crm });
 }

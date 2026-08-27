@@ -79,25 +79,13 @@ export default function DemoModal() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!valid) return;
-    // 1. Create the lead + deal in HubSpot (server-side; fire-and-forget).
+    // Server side: emails the request to leon@ivy.one and creates the
+    // HubSpot contact + deal. Fire-and-forget so the UI confirms instantly.
     void fetch("/api/demo-request", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     }).catch(() => {});
-    // 2. Trigger the email to leon@ivy.one with the form data.
-    const body = [
-      `First name: ${form.firstName}`,
-      `Last name: ${form.lastName}`,
-      `Work email: ${form.email}`,
-      `Company: ${form.company}`,
-      `Company type: ${form.companyType}`,
-      `Company size: ${form.companySize}`,
-      `How did you hear about us: ${form.source}`,
-    ].join("\n");
-    window.location.href = `mailto:leon@ivy.one?subject=${encodeURIComponent(
-      "REQUEST A DEMO"
-    )}&body=${encodeURIComponent(body)}`;
     setDone(true);
   };
 
@@ -122,11 +110,8 @@ export default function DemoModal() {
           </div>
           {done ? (
             <div className="dm__success">
-              <h2 className="dm__title">Request received.</h2>
-              <p className="dm__sub">
-                Thank you — we’ll come back to you within one business day. Your email draft has
-                opened; hit send to confirm, or write us directly at leon@ivy.one.
-              </p>
+              <h2 className="dm__title">Thank you.</h2>
+              <p className="dm__sub">We’ll be in touch shortly to schedule a call.</p>
               <button className="btn btn--primary btn--lg" type="button" onClick={close}>
                 Close
               </button>

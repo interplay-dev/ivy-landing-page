@@ -31,17 +31,19 @@ npm start
 ## Demo-request modal
 
 Every "Request a demo" CTA opens a modal (form: name, work email, company, type, size, source,
-privacy consent — modeled on rogo.com/felix). Submitting opens a prefilled REQUEST A DEMO email
-to leon@ivy.one and POSTs to `/api/demo-request`, which upserts a HubSpot contact and creates a
-deal in the stage labeled "Lead identified" (portal 247192581). `#demo` in the URL deep-links
-the modal open; without JavaScript the CTAs fall back to plain mailto.
+privacy consent — modeled on rogo.com/felix). Submitting POSTs to `/api/demo-request`, which
+(1) emails the request to leon@ivy.one over SMTP with reply-to set to the lead, and (2) upserts
+a HubSpot contact and creates a deal in the "Lead Identified" stage (portal 247192581). `#demo`
+in the URL deep-links the modal open; without JavaScript the CTAs fall back to plain mailto.
 
 ## Env
 
-- `HUBSPOT_TOKEN` — a HubSpot **Private App** access token (`pat-na2-…`) with scopes
-  `crm.objects.contacts.read/write` and `crm.objects.deals.read/write`. Create it under
-  HubSpot → Settings → Integrations → Private Apps. (Developer API keys `na2-…` do NOT work
-  for the CRM API.) Without it the form still works; deals just aren't created.
+- `HUBSPOT_TOKEN` — a HubSpot access token (`pat-na2-…`) with scopes
+  `crm.objects.contacts.read/write` and `crm.objects.deals.read/write`. Without it the form
+  still works; deals just aren't created.
+- `SMTP_USER` / `SMTP_PASS` — mailbox + app password used to send the demo-request email
+  (defaults to Google Workspace: `smtp.gmail.com:465`; override with `SMTP_HOST`/`SMTP_PORT`).
+  Without them the email step is skipped (HubSpot still captures the lead).
 - `NEXT_PUBLIC_WAITLIST_ENDPOINT` — Apps Script Web App URL for waitlist submissions. Defaults to the current production endpoint if unset.
 
 ## Deploy
