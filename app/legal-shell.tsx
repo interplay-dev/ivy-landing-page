@@ -1,4 +1,5 @@
 import Link from "next/link";
+import DemoModal from "./demo-modal";
 
 const REQUEST_A_DEMO = "mailto:leon@ivy.one?subject=REQUEST%20A%20DEMO";
 
@@ -14,6 +15,7 @@ export default function LegalShell({
 }) {
   return (
     <>
+      <DemoModal />
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
         <defs>
           <mask id="ivyLeafMask" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
@@ -55,7 +57,7 @@ export default function LegalShell({
             <span className="lockup__word">Ivy</span>
           </Link>
           <div className="nav__actions">
-            <a className="btn btn--primary" href={REQUEST_A_DEMO}>Request a demo</a>
+            <a className="btn btn--primary" href={REQUEST_A_DEMO} data-demo>Request a demo</a>
           </div>
         </div>
       </header>
