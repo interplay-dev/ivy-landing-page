@@ -4,13 +4,11 @@ import Effects from "./effects";
 import Leaf from "./leaf";
 import PhoneMockup from "./phone-mockup";
 
-const REQUEST_A_DEMO = "mailto:leon@ivy.one?subject=REQUEST%20A%20DEMO";
-
-export default function Home() {
+export default function Home({ demoOpen = false }: { demoOpen?: boolean }) {
   return (
     <>
       <Effects />
-      <DemoModal />
+      <DemoModal initialOpen={demoOpen} />
 
       <svg width="0" height="0" style={{ position: "absolute" }} aria-hidden="true">
         <defs>
@@ -52,7 +50,7 @@ export default function Home() {
             <span className="lockup__word">Ivy</span>
           </a>
           <div className="nav__actions">
-            <a className="btn btn--primary" href={REQUEST_A_DEMO} data-demo>Request a demo</a>
+            <a className="btn btn--primary" href="/demo" data-demo>Request a demo</a>
           </div>
         </div>
       </header>
@@ -73,7 +71,7 @@ export default function Home() {
                 reports every step.
               </p>
               <div className="hero__ctas">
-                <a className="btn btn--primary btn--pill btn--xl" href={REQUEST_A_DEMO} data-demo>Request a demo</a>
+                <a className="btn btn--primary btn--pill btn--xl" href="/demo" data-demo>Request a demo</a>
               </div>
             </div>
 
@@ -419,7 +417,7 @@ export default function Home() {
             <div className="cta reveal">
               <h2 className="cta__h2">Go further with Ivy.</h2>
               <p className="cta__sub">Help your firm go 10x — without adding headcount.</p>
-              <a className="btn btn--ondark btn--pill btn--xl" href={REQUEST_A_DEMO} data-demo>Request a demo</a>
+              <a className="btn btn--ondark btn--pill btn--xl" href="/demo" data-demo>Request a demo</a>
             </div>
             <hr className="footer__divider" />
             <footer className="footer">
@@ -440,7 +438,7 @@ export default function Home() {
                 <div className="footer__group">
                   <p className="footer__head">Get in touch</p>
                   <a href="mailto:leon@ivy.one">Contact us</a>
-                  <a href={REQUEST_A_DEMO} data-demo>Request a demo</a>
+                  <a href="/demo" data-demo>Request a demo</a>
                   <a href="https://www.linkedin.com/company/interplayecosystem/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
                 </div>
               </div>

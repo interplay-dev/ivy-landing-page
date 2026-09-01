@@ -1,8 +1,6 @@
 import Link from "next/link";
 import DemoModal from "./demo-modal";
 
-const REQUEST_A_DEMO = "mailto:leon@ivy.one?subject=REQUEST%20A%20DEMO";
-
 // Shared chrome for the legal pages: brand nav, 680px document column, slim footer.
 export default function LegalShell({
   title,
@@ -57,7 +55,7 @@ export default function LegalShell({
             <span className="lockup__word">Ivy</span>
           </Link>
           <div className="nav__actions">
-            <a className="btn btn--primary" href={REQUEST_A_DEMO} data-demo>Request a demo</a>
+            <a className="btn btn--primary" href="/demo" data-demo>Request a demo</a>
           </div>
         </div>
       </header>

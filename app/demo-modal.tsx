@@ -25,10 +25,11 @@ const EMPTY = {
   source: "",
 };
 
-// Demo-request dialog. Opens from any element carrying [data-demo]; those
-// elements keep their mailto href as a no-JS fallback.
-export default function DemoModal() {
-  const [open, setOpen] = useState(false);
+// Demo-request dialog. Opens from any element carrying [data-demo], from the
+// /demo route (initialOpen), or a #demo hash. Email + HubSpot fire only on a
+// valid submit — never on open.
+export default function DemoModal({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [done, setDone] = useState(false);
   const [agree, setAgree] = useState(false);
   const [form, setForm] = useState(EMPTY);
@@ -91,6 +92,10 @@ export default function DemoModal() {
 
   const close = () => {
     setOpen(false);
+    // Leaving the deep-linked /demo view returns the URL to the landing page.
+    if (window.location.pathname === "/demo") {
+      window.history.replaceState(null, "", "/");
+    }
     if (done) {
       setDone(false);
       setForm(EMPTY);
