@@ -178,6 +178,9 @@ export async function POST(req: Request) {
   if (!p?.email || !p?.firstName || !p?.company) {
     return NextResponse.json({ ok: false, error: "missing fields" }, { status: 400 });
   }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(p.email).trim())) {
+    return NextResponse.json({ ok: false, error: "invalid email" }, { status: 400 });
+  }
 
   const token = process.env.HUBSPOT_TOKEN;
   if (!token) console.error("demo-request: HUBSPOT_TOKEN is not set");

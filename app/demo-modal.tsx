@@ -33,6 +33,7 @@ export default function DemoModal({ initialOpen = false }: { initialOpen?: boole
   const [done, setDone] = useState(false);
   const [agree, setAgree] = useState(false);
   const [form, setForm] = useState(EMPTY);
+  const [emailTouched, setEmailTouched] = useState(false);
 
   useEffect(() => {
     if (window.location.hash === "#demo") setOpen(true);
@@ -67,10 +68,11 @@ export default function DemoModal({ initialOpen = false }: { initialOpen?: boole
     []
   );
 
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim());
   const valid =
     form.firstName.trim() &&
     form.lastName.trim() &&
-    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email) &&
+    emailValid &&
     form.company.trim() &&
     form.companyType &&
     form.companySize &&
@@ -133,7 +135,22 @@ export default function DemoModal({ initialOpen = false }: { initialOpen?: boole
                   <input className="inp" placeholder="First name*" aria-label="First name" value={form.firstName} onChange={set("firstName")} required />
                   <input className="inp" placeholder="Last name*" aria-label="Last name" value={form.lastName} onChange={set("lastName")} required />
                 </div>
-                <input className="inp" type="email" placeholder="Work email*" aria-label="Work email" value={form.email} onChange={set("email")} required />
+                <div>
+                  <input
+                    className={`inp${emailTouched && !emailValid ? " inp--error" : ""}`}
+                    type="email"
+                    placeholder="Work email*"
+                    aria-label="Work email"
+                    aria-invalid={emailTouched && !emailValid}
+                    value={form.email}
+                    onChange={set("email")}
+                    onBlur={() => setEmailTouched(form.email.trim().length > 0)}
+                    required
+                  />
+                  {emailTouched && !emailValid && (
+                    <p className="dm__err">Please enter a valid email address.</p>
+                  )}
+                </div>
                 <input className="inp" placeholder="Company*" aria-label="Company" value={form.company} onChange={set("company")} required />
                 <div className="dm__grid">
                   <select className="inp dm__select" aria-label="Company type" value={form.companyType} onChange={set("companyType")} required>

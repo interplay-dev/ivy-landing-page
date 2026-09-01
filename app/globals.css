@@ -533,6 +533,8 @@ a { color:inherit; text-decoration:none; }
 }
 .inp::placeholder { color:var(--n-400); }
 .inp:focus { outline:none; border-color:var(--ivy-500); box-shadow:0 0 0 3px rgba(44,132,98,.16); }
+.inp--error, .inp--error:focus { border-color:#B4342E; box-shadow:0 0 0 3px rgba(180,52,46,.12); }
+.dm__err { font-size:12.5px; letter-spacing:-.004em; color:#B4342E; margin-top:6px; }
 .dm__select {
   appearance:none; -webkit-appearance:none; cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%236E7672' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
