@@ -155,6 +155,19 @@ async function createCrmRecords(token: string, p: Payload) {
   }
 }
 
+// Config health check (no secrets — only whether each var is usable).
+export async function GET() {
+  const t = process.env.HUBSPOT_TOKEN ?? "";
+  return NextResponse.json({
+    hubspotToken: !t
+      ? "missing"
+      : t.startsWith("pat-")
+        ? "set — correct type"
+        : "set — WRONG TYPE (must start with pat-)",
+    smtp: process.env.SMTP_USER && process.env.SMTP_PASS ? "set" : "missing",
+  });
+}
+
 export async function POST(req: Request) {
   let p: Payload;
   try {
