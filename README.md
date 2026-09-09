@@ -55,3 +55,9 @@ Push to GitHub → connect the repo in Vercel → set `NEXT_PUBLIC_WAITLIST_ENDP
 Design tokens (color ramp, type scale, radii, shadows, motion) live in `app/globals.css` and mirror
 `~/IVY/brand/ivy-brand-guidelines.html` — one green (`#1B6A4D`), bone ground (`#F4F2ED`), Ivy 950 bands
 as punctuation, Instrument Serif for a single pull quote.
+
+## Renewing the one-pager
+
+`ivy.one/onepager` serves `public/onepager.pdf` (rewrite in next.config.ts). To renew: replace
+`public/onepager.pdf` with the new PDF (keep the filename), commit, push — the shared link stays
+the same. To kill the link: delete the file and the rewrite.
