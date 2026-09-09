@@ -60,9 +60,11 @@ export default function Home({ demoOpen = false }: { demoOpen?: boolean }) {
         <section className="hero">
           <div className="container hero__row">
             <div className="hero__copy reveal">
+              <p className="eyebrow">The AI operator for family offices</p>
               <h1 className="hero__h1">
-                Ivy — The AI senior teammate<br />
-                <span className="muted">for family offices.</span>
+                Ivy — The AI<br />
+                senior teammate<br />
+                <em className="hero__h1-serif">for family offices.</em>
               </h1>
               <p className="hero__sub">
                 Ivy is your firm’s new senior team member — one hire that does the work of 6.
