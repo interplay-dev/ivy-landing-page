@@ -31,6 +31,15 @@ export default function Effects() {
         { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
       );
       targets.forEach((el) => io?.observe(el));
+      // Rescue: if the observer stalls (throttled tabs, prerender), reveal
+      // whatever is already in the viewport so content can never stay hidden.
+      setTimeout(() => {
+        targets.forEach((el) => {
+          if (el.classList.contains("in")) return;
+          const r = el.getBoundingClientRect();
+          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add("in");
+        });
+      }, 900);
     }
 
     return () => {
