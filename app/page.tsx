@@ -429,7 +429,7 @@ export default function Home({ demoOpen = false }: { demoOpen?: boolean }) {
                     <Leaf size={26} />
                     <span className="lockup__word lockup__word--ondark">Ivy</span>
                   </a>
-                  <p>The AI operator for family offices,<br />private equity, and investment funds.</p>
+                  <p>The AI operator for family offices.</p>
                   <span className="footer__site">IVY.ONE</span>
                 </div>
                 <div className="footer__group">
