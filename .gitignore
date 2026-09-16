@@ -44,3 +44,6 @@ next-env.d.ts
 /index.html
 /styles.css
 /app.js
+
+# local Claude Code tooling config
+/.claude/
