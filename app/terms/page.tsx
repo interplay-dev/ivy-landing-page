@@ -98,7 +98,7 @@ export default function Terms() {
 
       <h2>13. Contact</h2>
       <p>
-        Questions about these terms: <a href="mailto:leon@ivy.one">leon@ivy.one</a>.
+        Questions about these terms: <a href="mailto:hello@ivy.one">hello@ivy.one</a>.
       </p>
     </LegalShell>
   );

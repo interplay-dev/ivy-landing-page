@@ -100,7 +100,7 @@ function Footer() {
             <div className="footer__col">
               <h4>Company</h4>
               <Link href="/about">About</Link>
-              <a href="mailto:leon@ivy.one">Contact</a>
+              <a href="mailto:hello@ivy.one">Contact</a>
               <a href="https://www.linkedin.com/company/ivyoneai/" target="_blank" rel="noreferrer">
                 LinkedIn
               </a>
@@ -200,7 +200,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
               </h2>
               <p className="body" style={{ marginTop: 18 }}>
                 One of us will reply within a business day to find a time. If it&rsquo;s urgent, write to{" "}
-                <a href="mailto:leon@ivy.one" style={{ color: "var(--ivy-700)", fontWeight: 500 }}>leon@ivy.one</a>.
+                <a href="mailto:hello@ivy.one" style={{ color: "var(--ivy-700)", fontWeight: 500 }}>hello@ivy.one</a>.
               </p>
               <button type="button" className="btn btn--secondary" style={{ marginTop: 32 }} onClick={onClose}>
                 Close
@@ -255,7 +255,7 @@ function DemoModal({ onClose }: { onClose: () => void }) {
 
               {state === "error" && (
                 <p className="small" style={{ marginTop: 14, color: "var(--down)" }}>
-                  That didn&rsquo;t go through. Please email leon@ivy.one and we&rsquo;ll pick it up.
+                  That didn&rsquo;t go through. Please email hello@ivy.one and we&rsquo;ll pick it up.
                 </p>
               )}
 

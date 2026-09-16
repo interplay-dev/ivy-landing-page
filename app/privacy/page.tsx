@@ -71,7 +71,7 @@ export default function Privacy() {
       <p>
         Depending on where you live, you may have rights to access, correct, delete, or object to
         our processing of your personal information. To exercise them, email{" "}
-        <a href="mailto:leon@ivy.one">leon@ivy.one</a> and we will respond within a reasonable
+        <a href="mailto:hello@ivy.one">hello@ivy.one</a> and we will respond within a reasonable
         time.
       </p>
 
@@ -89,7 +89,7 @@ export default function Privacy() {
 
       <h2>11. Contact</h2>
       <p>
-        Questions about privacy at Ivy: <a href="mailto:leon@ivy.one">leon@ivy.one</a>.
+        Questions about privacy at Ivy: <a href="mailto:hello@ivy.one">hello@ivy.one</a>.
       </p>
     </LegalShell>
   );
