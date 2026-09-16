@@ -148,8 +148,7 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
             </em>
           </h1>
           <p className="lede measure-sm mx-auto" style={{ marginTop: 26 }}>
-            Ivy is the senior hire your firm has been putting off. She knows your workflows, takes
-            over what you delegate, and works proactively, so you can do what you do best.
+            {DESCRIPTION}
           </p>
           <div style={{ marginTop: 40 }}>
             <DemoButton>Request a demo</DemoButton>
