@@ -2,10 +2,23 @@ import type { Metadata } from "next";
 import Shell, { Band, DemoButton } from "./v2/shell";
 import RoleCycler from "./v2/role-cycler";
 
+const TITLE = "Ivy: The AI Operator for Family Offices";
+const DESCRIPTION =
+  "Ivy is the most capable AI teammate for family offices. She joins your team, learns your firm and gets the work done.";
+
 export const metadata: Metadata = {
-  title: "Ivy — Your new senior hire",
-  description:
-    "Ivy is the senior hire your firm has been putting off. She knows your workflows, takes over what you delegate, and works proactively.",
+  title: TITLE,
+  description: DESCRIPTION,
+  // What Slack, LinkedIn and iMessage read when ivy.one is shared.
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://ivy.one",
+    siteName: "Ivy",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
 };
 
 /* The \n in each label is deliberate — .stats span is white-space:pre-line, so the

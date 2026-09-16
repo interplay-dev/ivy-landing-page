@@ -21,10 +21,18 @@ const serif = Instrument_Serif({
 });
 const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--nf-mono" });
 
+const TITLE = "Ivy: The AI Operator for Family Offices";
+const DESCRIPTION =
+  "Ivy is the most capable AI teammate for family offices. She joins your team, learns your firm and gets the work done.";
+
+// Site-wide default, used by any route that does not set its own. Deliberately no
+// openGraph block here: a page that sets no openGraph of its own would inherit
+// this one wholesale, so every inner page would unfurl with the home page's title
+// and URL. The share tags live on the home page instead.
 export const metadata: Metadata = {
-  title: "Ivy — Your new AI hire",
-  description:
-    "Ivy is the AI operator for family offices, private equity, and investment funds. One hire that does the work of three to five — live in days.",
+  metadataBase: new URL("https://ivy.one"),
+  title: TITLE,
+  description: DESCRIPTION,
 };
 
 export default function RootLayout({
