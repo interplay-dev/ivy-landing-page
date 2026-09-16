@@ -2,8 +2,11 @@
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
-/* The hero role opens and closes on "senior hire", running through everything
-   Ivy absorbs in between.
+/* The hero role loops continuously through everything Ivy absorbs, starting on
+   "senior hire". Each word holds for HOLD before the next one takes over.
+
+   "senior hire" appears once, not twice: the list wraps, so a duplicate at the
+   end would show it for two beats running at the seam.
 
    The slot is a fixed width — the longest word plus its full stop — and every
    word is aligned to its LEFT edge, so each one starts flush against "your new"
@@ -23,11 +26,9 @@ const WORDS = [
   "controller",
   "engineer",
   "designer",
-  "senior hire",
 ];
 
-const FIRST_HOLD = 2200;
-const HOLD = 1700;
+const HOLD = 2000;
 
 export default function RoleCycler() {
   const [index, setIndex] = useState(0);
@@ -70,9 +71,8 @@ export default function RoleCycler() {
   }, [measure]);
 
   useEffect(() => {
-    if (index >= WORDS.length - 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const t = window.setTimeout(() => setIndex((i) => i + 1), index === 0 ? FIRST_HOLD : HOLD);
+    const t = window.setTimeout(() => setIndex((i) => (i + 1) % WORDS.length), HOLD);
     return () => window.clearTimeout(t);
   }, [index]);
 
@@ -90,7 +90,7 @@ export default function RoleCycler() {
       {WORDS.map((word, i) => (
         <span
           key={`${word}-${i}`}
-          className={`cycle__w${i === index ? " is-on" : ""}${i < index ? " is-out" : ""}`}
+          className={`cycle__w${i === index ? " is-on" : ""}`}
         >
           {word}
           <span className="cycle__dot">.</span>

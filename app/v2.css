@@ -461,7 +461,6 @@ select.field { appearance:none; background-image:url("data:image/svg+xml;utf8,<s
    upright style, exactly as it did when it sat outside the accent */
 .cycle__dot { font-style:normal; color:var(--ink); }
 .sec--dark .cycle__dot, .on-dark .cycle__dot { color:var(--bone); }
-.cycle__w.is-out { opacity:0; filter:blur(.14em); transform:translateY(-.3em); }
 .cycle__w.is-on {
   opacity:1; filter:blur(0); transform:none; visibility:visible;
   transition:opacity .55s var(--ease), transform .55s var(--ease),
