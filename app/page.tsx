@@ -140,7 +140,7 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
         <div className="wrap center">
           <img className="ivy-avatar" src="/img/team/head-ivy.jpg" alt="Ivy" width={88} height={88} />
           <h1 className="d1" style={{ marginTop: 28 }}>
-            Introducing Ivy,
+            Meet Ivy,
             <br />
             your new{" "}
             <em className="acc">
