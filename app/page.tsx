@@ -79,7 +79,9 @@ const FEATURES = [
       </>
     ),
     body: "Ivy is deployed into your firm, your tenant, your tools, your controls. She connects to what you already use, and nothing she learns ever leaves your walls.",
-    img: "/img/mocks/product-tools.png",
+    // renamed on re-export: files in public/ are not content-hashed, so replacing
+    // one in place leaves Vercel's edge cache serving the old bytes forever
+    img: "/img/mocks/product-tools-v2.png",
     alt: "Ivy connected to Gmail, Drive, Slack, Notion, Excel and other tools",
     reverse: true,
   },
