@@ -1,0 +1,18 @@
+# Dependency scanning for the ivy.one site.
+# Dependabot opens PRs for vulnerable and outdated dependencies.
+# Also enable "Dependabot alerts" and "Dependabot security updates" in
+# repo Settings → Code security, which is what actually watches for CVEs.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"

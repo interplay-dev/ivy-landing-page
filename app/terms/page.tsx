@@ -11,9 +11,9 @@ export default function Terms() {
     <LegalShell title="Terms of Service" updated="August 26, 2026">
       <h2>1. Agreement to these terms</h2>
       <p>
-        These terms govern your use of the ivy.one website and your general dealings with Ivy
-        One, LLC (“Ivy”, “we”, “us”), a software and consulting firm and an Interplay company.
-        By using the site or contacting us, you agree to these terms.
+        These terms govern your use of the ivy.one website and your general dealings with
+        Ivy One LLC (“Ivy”, “we”, “us”), a software and consulting firm and an Interplay
+        company. By using the site or contacting us, you agree to these terms.
       </p>
 
       <h2>2. Our services</h2>
