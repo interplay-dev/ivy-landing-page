@@ -201,7 +201,7 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
       <section className="sec sec--line">
         <div className="wrap">
           <h2 className="d2">
-            She&rsquo;ll work <em className="acc">in your sleep</em>.
+            She&rsquo;ll work <em className="acc">while you sleep</em>.
           </h2>
           <p className="lede measure-sm" style={{ marginTop: 16 }}>
             Give Ivy a standing brief once. She runs it on schedule, every time, and only wakes you
@@ -228,7 +228,7 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
             She hands you the <em className="acc">finished thing</em>.
           </h2>
           <p className="lede measure-sm" style={{ marginTop: 16 }}>
-            Ivy is pro-active and gives you the actual deliverable, in the format you need it in.
+            Ivy is proactive and gives you the actual deliverable, in the format you need it in.
           </p>
           <div className="grid-2" style={{ marginTop: 48 }}>
             {OUTPUTS.map((o) => (
