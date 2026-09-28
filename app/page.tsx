@@ -117,11 +117,14 @@ const OUTPUTS = [
   { title: "Websites", body: "A private microsite for the next family meeting or a co-invest.", img: "/img/mocks/out-websites.png" },
 ];
 
+/* The two lists are read row for row, so an entry added to one needs its
+   opposite number added at the same index in the other. */
 const IVY_SIDE = [
   "Onboarded to your firm, files and philosophy",
   "Takes work end to end — draft, chase, deliver",
   "Works proactively on a standing brief, 24/7",
   "Lives in your inbox, calendar and drive",
+  "100% private and secure — no data leaves your four walls",
   "Your tenant, your controls, no model training",
   "A named deployment lead and a 30-day plan",
 ];
@@ -130,6 +133,7 @@ const SUB_SIDE = [
   "Answers questions; you still do the work",
   "Waits to be prompted",
   "Copy-paste in, copy-paste out",
+  "Your data leaves your walls and trains their models",
   "Shared infrastructure, vendor terms",
   "A help centre",
 ];
