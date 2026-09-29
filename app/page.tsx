@@ -17,8 +17,9 @@ export const metadata: Metadata = {
     siteName: "Ivy",
     type: "website",
     locale: "en_US",
+    images: [{ url: "https://www.ivy.one/og/ivy-banner.png", width: 1200, height: 630, alt: "Ivy — ivy.one" }],
   },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["https://www.ivy.one/og/ivy-banner.png"] },
 };
 
 /* The \n in each label is deliberate — .stats span is white-space:pre-line, so the
