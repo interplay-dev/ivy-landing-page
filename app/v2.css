@@ -159,6 +159,32 @@
 .figure--card { border-radius:var(--r-card); }
 .mock img { width:100%; height:auto; border-radius:var(--r-panel); }
 
+/* ---------- hero (v2.1): split headline, wide video stage ---------- */
+.hero2 { padding:clamp(56px,8vw,112px) 0 clamp(72px,9vw,120px); }
+.hero2__top {
+  max-width:1240px; margin:0 auto; padding-inline:24px;
+  display:grid; grid-template-columns:minmax(0,1.5fr) minmax(0,1fr); gap:56px; align-items:end;
+}
+.hero2__title { font-size:clamp(44px,6.2vw,86px); line-height:1.0; letter-spacing:-.035em; }
+.hero2__side { padding-bottom:10px; }
+.hero2__side .lede { max-width:390px; }
+.hero2__side .btn { margin-top:28px; }
+.hero2__stage { max-width:1400px; margin:clamp(48px,6vw,88px) auto 0; padding-inline:24px; }
+.hero2__stage-in {
+  position:relative; border-radius:var(--r-panel); overflow:hidden;
+  padding:clamp(28px,5.5vw,88px) clamp(20px,6.5vw,112px);
+  background:url(/img/photos/product-hero.jpg) center 35%/cover var(--ivy-900);
+}
+.hero2__stage-in::before { content:""; position:absolute; inset:0; background:linear-gradient(180deg,rgba(7,37,27,.10),rgba(7,37,27,.34)); }
+.hero2__stage .hero-video { border-radius:var(--r-card); box-shadow:0 30px 80px rgba(4,23,17,.38), 0 0 0 1px rgba(255,255,255,.08); }
+@media (max-width:860px) {
+  .hero2__top { grid-template-columns:1fr; gap:22px; }
+  .hero2__side { padding-bottom:0; }
+  .hero2__title br { display:none; }
+  .hero2__stage { padding-inline:12px; }
+  .hero2__stage-in { padding:14px; }
+}
+
 /* hero trailer — replaces the static Slack mock; see v2/hero-video.tsx */
 .hero-video { position:relative; border-radius:var(--r-panel); overflow:hidden; background:var(--ivy-900); aspect-ratio:16/9; }
 .hero-video video { display:block; width:100%; height:100%; object-fit:cover; }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Shell, { Band, DemoButton } from "./v2/shell";
-import RoleCycler from "./v2/role-cycler";
 import HeroVideo from "./v2/hero-video";
 
 const TITLE = "Ivy: The AI Operator for Family Offices";
@@ -142,33 +141,21 @@ const SUB_SIDE = [
 export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
   return (
     <Shell demoOpen={demoOpen}>
-      {/* hero */}
-      <section className="sec" style={{ paddingBottom: 112 }}>
-        <div className="wrap center">
-          <div className="ivy-avatar ivy-avatar--mark" role="img" aria-label="Ivy">
-            <svg viewBox="1.5 11.5 47.75 46.5" width={44} height={43} aria-hidden="true">
-              <path d="M48.5 11.5 C51.5 26.5 45.5 40.5 34 46 C22 51.8 9 45.5 8.5 34.5 C8 23.5 17.5 15.5 30 14 C36.5 13.2 41.5 17 48.5 11.5 Z" fill="#fff" />
-              <path d="M11 41 C19 43 28 38 36 29" stroke="var(--ivy-700)" strokeWidth="4.2" fill="none" strokeLinecap="round" />
-              <path d="M3.5 56 C6.5 51 8.5 45.5 11 41" stroke="#fff" strokeWidth="4" fill="none" strokeLinecap="round" />
-            </svg>
-          </div>
-          <h1 className="d1" style={{ marginTop: 28 }}>
-            Meet Ivy,
-            <br />
-            your new{" "}
-            <em className="acc">
-              <RoleCycler />
-            </em>
+      {/* hero — headline left, pitch + CTA right, the trailer on a wide photo stage below */}
+      <section className="hero2">
+        <div className="hero2__top">
+          <h1 className="d1 hero2__title">
+            The AI OS &amp;<br /> super agents for<br /> your <em className="acc">family office</em>
           </h1>
-          <p className="lede measure-sm mx-auto" style={{ marginTop: 26 }}>
-            {DESCRIPTION}
-          </p>
-          <div style={{ marginTop: 40 }}>
+          <div className="hero2__side">
+            <p className="lede">Learn why modern family offices &amp; investment funds trust Ivy to run their firms.</p>
             <DemoButton>Request a demo</DemoButton>
           </div>
-          <figure className="mock" style={{ marginTop: 80 }}>
+        </div>
+        <div className="hero2__stage">
+          <div className="hero2__stage-in">
             <HeroVideo />
-          </figure>
+          </div>
         </div>
       </section>
 
