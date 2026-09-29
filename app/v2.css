@@ -159,6 +159,28 @@
 .figure--card { border-radius:var(--r-card); }
 .mock img { width:100%; height:auto; border-radius:var(--r-panel); }
 
+/* hero trailer — replaces the static Slack mock; see v2/hero-video.tsx */
+.hero-video { position:relative; border-radius:var(--r-panel); overflow:hidden; background:var(--ivy-900); aspect-ratio:16/9; }
+.hero-video video { display:block; width:100%; height:100%; object-fit:cover; }
+.hero-video__controls { position:absolute; right:16px; bottom:16px; display:flex; gap:8px; }
+.hero-video__controls button {
+  display:inline-flex; align-items:center; justify-content:center; gap:7px; height:40px; min-width:40px; padding:0 11px;
+  border:0; border-radius:var(--r-pill); cursor:pointer; color:#fff; font:500 13.5px/1 inherit; letter-spacing:-.005em;
+  background:rgba(7,37,27,.62); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px);
+  transition:background .2s var(--ease), transform .2s var(--ease);
+}
+.hero-video__controls button:hover { background:rgba(7,37,27,.82); }
+.hero-video__controls button:active { transform:scale(.96); }
+.hero-video__controls button:focus-visible { outline:2px solid var(--ivy-300); outline-offset:2px; }
+.hero-video__controls svg { width:18px; height:18px; fill:currentColor; flex:none; }
+.hero-video__sound { padding:0 14px 0 12px !important; }
+@media (max-width:640px) {
+  .hero-video__controls { right:10px; bottom:10px; gap:6px; }
+  .hero-video__controls button { height:34px; min-width:34px; padding:0 9px; }
+  .hero-video__sound span { display:none; }
+  .hero-video__sound { padding:0 9px !important; }
+}
+
 /* ---------- testimonial ---------- */
 .quote { display:grid; grid-template-columns:360px minmax(0,1fr); gap:96px; align-items:center; }
 .quote__portrait {
@@ -364,6 +386,8 @@ select.field { appearance:none; background-image:url("data:image/svg+xml;utf8,<s
 
 /* ---------- product page pieces ---------- */
 .ivy-avatar { width:88px; height:88px; border-radius:var(--r-pill); object-fit:cover; margin-inline:auto; box-shadow:0 0 0 3px var(--ivy-200); }
+.ivy-avatar--mark { display:flex; align-items:center; justify-content:center; background:var(--ivy-700); }
+.ivy-avatar--mark svg { display:block; }
 
 .feature__fig img { width:100%; height:auto; border-radius:var(--r-panel); }
 .feature--rev .feature__copy { order:2; }
