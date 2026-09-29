@@ -146,7 +146,7 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
       <section className="hero2">
         <div className="hero2__top">
           <h1 className="d1 hero2__title">
-            The AI OS &amp;<br /> super agents for<br /> your <em className="acc">family office</em>
+            The AI operator<br /> for <em className="acc">family offices</em>
           </h1>
           <div className="hero2__side">
             <p className="lede">Learn why modern family offices &amp; investment funds trust Ivy to run their firms.</p>
