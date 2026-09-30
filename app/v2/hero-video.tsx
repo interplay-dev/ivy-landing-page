@@ -56,8 +56,8 @@ export default function HeroVideo() {
     <div className="hero-video">
       <video
         ref={ref}
-        src="/video/ivy-trailer.mp4"
-        poster="/video/ivy-trailer-poster.jpg"
+        src="/video/ivy-trailer-v2.mp4"
+        poster="/video/ivy-trailer-v2-poster.jpg"
         autoPlay
         muted
         loop
