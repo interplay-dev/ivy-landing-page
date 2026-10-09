@@ -1,8 +1,20 @@
 import type { Metadata } from "next";
 import Shell, { Band, DemoButton } from "./v2/shell";
+import Cycler from "./v2/cycler";
 import HeroVideo from "./v2/hero-video";
 
 const TITLE = "Ivy: The AI Operator for Family Offices";
+/* Flipped through in the hero headline. "RIAs" rather than "RIA's" — the
+   apostrophe would read as a possessive. */
+const SEGMENTS = [
+  "family offices",
+  "investment funds",
+  "venture capital",
+  "RIAs",
+  "asset managers",
+  "wealth managers",
+];
+
 const DESCRIPTION =
   "Ivy is the most capable AI teammate for family offices. She joins your team, learns your firm and gets the work done.";
 
@@ -146,10 +158,16 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
       <section className="hero2">
         <div className="hero2__top">
           <h1 className="d1 hero2__title">
-            The AI operator<br /> for <em className="acc">family offices</em>
+            The AI operator<br /> for{" "}
+            <em className="acc">
+              <Cycler words={SEGMENTS} />
+            </em>
           </h1>
           <div className="hero2__side">
-            <p className="lede">Learn why modern family offices &amp; investment funds trust Ivy to run their firms.</p>
+            <p className="lede">
+              Save time &amp; money and be more efficient with Ivy, the most secure &amp;
+              private AI super agent system for financial firms.
+            </p>
             <DemoButton>Request a demo</DemoButton>
           </div>
         </div>

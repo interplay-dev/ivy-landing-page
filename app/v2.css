@@ -476,48 +476,37 @@ select.field { appearance:none; background-image:url("data:image/svg+xml;utf8,<s
 .legal-doc__body a:hover { color:var(--ivy-800); }
 .legal-doc__body strong { color:var(--ink); font-weight:600; }
 
-/* ---------- hero role cycler ---------- */
-/* Motion follows rogo.com/felix: each word fades and un-blurs as it settles,
-   the outgoing one lifts away. The box width eases so the full stop glides along. */
+/* ---------- phrase cycler ---------- */
 .sr-only {
   position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
 }
-/* The slot is fixed to the widest word (measured in JS), so the sentence around
-   it never reflows — only the word inside changes. */
-.cycle {
-  position:relative; display:inline-block; vertical-align:baseline;
-}
-/* The sizer gives the slot its height and, crucially, its baseline. It must NOT
-   clip its overflow: an inline-block with overflow != visible takes its bottom
-   margin edge as its baseline, which lifts the whole cycler off the heading's
-   baseline and strands the full stop below it. Its content is a zero-width
-   space, so it costs no width and overflows nothing. */
-.cycle__h { display:inline-block; width:0; white-space:nowrap; }
-/* The words span the slot and sit against its left edge, flush with the word
-   before them. Spanning it (rather than sizing to content) keeps them from
-   sticking out and adding scrollable width; widths come from a detached probe. */
-.cycle__w {
-  position:absolute; left:0; right:0; top:0; text-align:left; white-space:nowrap;
-  opacity:0; filter:blur(.14em); transform:translateY(-.3em);
-  /* visibility keeps the inactive words out of the heading's text for crawlers,
-     delayed so the outgoing word still gets to fade */
+/* Every phrase occupies the same grid cell, so the slot is the width of the
+   longest and the height of the tallest, and they all start at its left edge.
+   Nothing around them reflows, and there is no width to measure in JS.
+   Motion follows rogo.com/felix: each phrase fades and un-blurs as it settles
+   while the outgoing one lifts away. */
+.cyc { display:inline-grid; vertical-align:baseline; text-align:left; }
+.cyc__w {
+  grid-area:1/1; white-space:nowrap;
+  opacity:0; filter:blur(.12em); transform:translateY(-.26em);
+  /* visibility keeps the inactive phrases out of the heading's text for
+     crawlers, delayed so the outgoing one still gets to fade */
   visibility:hidden;
   transition:opacity .55s var(--ease), transform .55s var(--ease),
              filter .55s var(--ease), visibility 0s linear .55s;
   will-change:opacity, transform, filter;
 }
-/* the full stop rides along with the word but keeps the heading's own ink and
-   upright style, exactly as it did when it sat outside the accent */
-.cycle__dot { font-style:normal; color:var(--ink); }
-.sec--dark .cycle__dot, .on-dark .cycle__dot { color:var(--bone); }
-.cycle__w.is-on {
+.cyc__w.is-on {
   opacity:1; filter:blur(0); transform:none; visibility:visible;
   transition:opacity .55s var(--ease), transform .55s var(--ease),
              filter .55s var(--ease), visibility 0s linear 0s;
 }
+/* narrow screens: let a phrase wrap rather than push the headline past the
+   edge of the viewport */
+@media (max-width:560px) { .cyc__w { white-space:normal; } }
 @media (prefers-reduced-motion: reduce) {
-  .cycle__w { filter:none; transform:none; transition:none; }
+  .cyc__w { filter:none; transform:none; transition:none; }
 }
 
 .interplay { transition:opacity .18s var(--ease); }
