@@ -82,7 +82,7 @@ function Footer() {
             <p className="footer__tag">
               The AI partner
               <br />
-              for <em className="acc">family offices</em>.
+              for <em className="acc">asset managers</em>.
             </p>
             <button type="button" className="btn btn--onDark" style={{ marginTop: 30 }} onClick={open}>
               Get in touch
