@@ -165,8 +165,8 @@ export default function HomePage({ demoOpen = false }: { demoOpen?: boolean }) {
           </h1>
           <div className="hero2__side">
             <p className="lede">
-              Save time &amp; money and be more efficient with Ivy, the most secure &amp;
-              private AI super agent system for financial firms.
+              Save time and money with Ivy, the most secure &amp; private AI super agent
+              system built for financial firms.
             </p>
             <DemoButton>Request a demo</DemoButton>
           </div>
